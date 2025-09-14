@@ -1,28 +1,8 @@
-import json
-import os
+# Projeto: Central de Notícias - Futebol Feminino
+# Integrantes: Julia Schiavi, Leonardo Grosskof, Thayna Lopes, Sofia Bomeny
 
-# Arquivo onde vamos salvar os dados
-ARQUIVO = "noticias.json"
-
-noticias = []
-id_atual = 1
-
-
-def carregar_dados():
-    global noticias, id_atual
-    if os.path.exists(ARQUIVO):
-        with open(ARQUIVO, "r", encoding="utf-8") as f:
-            noticias = json.load(f)
-            # Atualiza o id_atual com base no último ID salvo
-            if noticias:
-                id_atual = max(n["id"] for n in noticias) + 1
-            else:
-                id_atual = 1
-
-
-def salvar_dados():
-    with open(ARQUIVO, "w", encoding="utf-8") as f:
-        json.dump(noticias, f, indent=4, ensure_ascii=False)
+noticias = {}   
+id_atual = 1    
 
 
 def cadastrar():
@@ -30,16 +10,13 @@ def cadastrar():
     titulo = input("Título: ")
     resumo = input("Resumo: ")
     categoria = input("Categoria (clube/campeonato/jogadora): ")
-    noticia = {
-        "id": id_atual,
+    noticias[id_atual] = {
         "titulo": titulo,
         "resumo": resumo,
         "categoria": categoria
     }
-    noticias.append(noticia)
+    print(f"✅ Notícia cadastrada com ID {id_atual}!\n")
     id_atual += 1
-    salvar_dados()
-    print("✅ Notícia cadastrada!\n")
 
 
 def listar():
@@ -47,21 +24,21 @@ def listar():
         print("⚠ Nenhuma notícia cadastrada.\n")
     else:
         print("\n=== Todas as Notícias ===")
-        for n in noticias:
-            print(f"ID: {n['id']} | {n['categoria'].upper()}")
-            print(f"Título: {n['titulo']}")
-            print(f"Resumo: {n['resumo']}\n")
+        for id_, dados in noticias.items():
+            print(f"ID: {id_} | {dados['categoria'].upper()}")
+            print(f"Título: {dados['titulo']}")
+            print(f"Resumo: {dados['resumo']}\n")
 
 
 def filtrar():
     cat = input("Digite a categoria (clube/campeonato/jogadora): ")
     achou = False
     print(f"\n=== Notícias da categoria {cat.upper()} ===")
-    for n in noticias:
-        if n["categoria"].lower() == cat.lower():
-            print(f"ID: {n['id']} | {n['categoria'].upper()}")
-            print(f"Título: {n['titulo']}")
-            print(f"Resumo: {n['resumo']}\n")
+    for id_, dados in noticias.items():
+        if dados["categoria"].lower() == cat.lower():
+            print(f"ID: {id_} | {dados['categoria'].upper()}")
+            print(f"Título: {dados['titulo']}")
+            print(f"Resumo: {dados['resumo']}\n")
             achou = True
     if not achou:
         print("⚠ Nenhuma notícia encontrada nessa categoria.\n")
@@ -71,11 +48,11 @@ def buscar():
     termo = input("Digite uma palavra para buscar: ").lower()
     achou = False
     print(f"\n=== Resultados da busca por: {termo} ===")
-    for n in noticias:
-        if termo in n["titulo"].lower() or termo in n["resumo"].lower():
-            print(f"ID: {n['id']} | {n['categoria'].upper()}")
-            print(f"Título: {n['titulo']}")
-            print(f"Resumo: {n['resumo']}\n")
+    for id_, dados in noticias.items():
+        if termo in dados["titulo"].lower() or termo in dados["resumo"].lower():
+            print(f"ID: {id_} | {dados['categoria'].upper()}")
+            print(f"Título: {dados['titulo']}")
+            print(f"Resumo: {dados['resumo']}\n")
             achou = True
     if not achou:
         print("⚠ Nenhuma notícia encontrada.\n")
@@ -84,13 +61,11 @@ def buscar():
 def remover():
     try:
         id_remove = int(input("Digite o ID da notícia que deseja remover: "))
-        for n in noticias:
-            if n["id"] == id_remove:
-                noticias.remove(n)
-                salvar_dados()
-                print("🗑 Notícia removida!\n")
-                return
-        print("⚠ ID não encontrado.\n")
+        if id_remove in noticias:
+            del noticias[id_remove]
+            print("🗑 Notícia removida!\n")
+        else:
+            print("⚠ ID não encontrado.\n")
     except ValueError:
         print("⚠ Digite um número válido.\n")
 
@@ -109,7 +84,6 @@ def mostrar_menu():
 
 
 def menu():
-    carregar_dados()  # carrega ao iniciar
     while True:
         mostrar_menu()
         opc = input("👉 Escolha uma opção: ")
