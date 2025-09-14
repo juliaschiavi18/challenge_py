@@ -1,9 +1,28 @@
-# Projeto: Central de Notícias - Futebol Feminino
-# Integrantes: Julia Schiavi, Leonardo Grosskof, Thayna Lopes, Sofia Bomeny
+import json
+import os
+
+# Arquivo onde vamos salvar os dados
+ARQUIVO = "noticias.json"
+
+noticias = []
+id_atual = 1
 
 
-noticias = []  
-id_atual = 1   
+def carregar_dados():
+    global noticias, id_atual
+    if os.path.exists(ARQUIVO):
+        with open(ARQUIVO, "r", encoding="utf-8") as f:
+            noticias = json.load(f)
+            # Atualiza o id_atual com base no último ID salvo
+            if noticias:
+                id_atual = max(n["id"] for n in noticias) + 1
+            else:
+                id_atual = 1
+
+
+def salvar_dados():
+    with open(ARQUIVO, "w", encoding="utf-8") as f:
+        json.dump(noticias, f, indent=4, ensure_ascii=False)
 
 
 def cadastrar():
@@ -19,6 +38,7 @@ def cadastrar():
     }
     noticias.append(noticia)
     id_atual += 1
+    salvar_dados()
     print("✅ Notícia cadastrada!\n")
 
 
@@ -67,6 +87,7 @@ def remover():
         for n in noticias:
             if n["id"] == id_remove:
                 noticias.remove(n)
+                salvar_dados()
                 print("🗑 Notícia removida!\n")
                 return
         print("⚠ ID não encontrado.\n")
@@ -88,15 +109,16 @@ def mostrar_menu():
 
 
 def menu():
+    carregar_dados()  # carrega ao iniciar
     while True:
         mostrar_menu()
         opc = input("👉 Escolha uma opção: ")
 
-        if not opc.isdigit():  # só aceita números
+        if not opc.isdigit():
             print("⚠ Digite apenas números!\n")
             continue
 
-        opc = int(opc)  # converte para inteiro
+        opc = int(opc)
 
         if opc == 1:
             cadastrar()
