@@ -74,3 +74,46 @@ def remover():
         print("⚠ Digite um número válido.\n")
 
 
+def mostrar_menu():
+    print("\n" + "=" * 45)
+    print(" 📢 Central de Notícias - Futebol Feminino ")
+    print("=" * 45)
+    print("1️⃣  Cadastrar notícia")
+    print("2️⃣  Listar todas as notícias")
+    print("3️⃣  Filtrar por categoria")
+    print("4️⃣  Buscar por palavra")
+    print("5️⃣  Remover notícia")
+    print("0️⃣  Sair")
+    print("=" * 45)
+
+
+def menu():
+    while True:
+        mostrar_menu()
+        opc = input("👉 Escolha uma opção: ")
+
+        if not opc.isdigit():  # só aceita números
+            print("⚠ Digite apenas números!\n")
+            continue
+
+        opc = int(opc)  # converte para inteiro
+
+        if opc == 1:
+            cadastrar()
+        elif opc == 2:
+            listar()
+        elif opc == 3:
+            filtrar()
+        elif opc == 4:
+            buscar()
+        elif opc == 5:
+            remover()
+        elif opc == 0:
+            print("👋 Saindo... até a próxima!")
+            break
+        else:
+            print("⚠ Opção inválida. Escolha entre 0 e 5.\n")
+
+
+if __name__ == "__main__":
+    menu()
