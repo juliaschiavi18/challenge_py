@@ -33,3 +33,31 @@ def listar():
             print(f"Resumo: {n['resumo']}\n")
 
 
+def filtrar():
+    cat = input("Digite a categoria (clube/campeonato/jogadora): ")
+    achou = False
+    print(f"\n=== Notícias da categoria {cat.upper()} ===")
+    for n in noticias:
+        if n["categoria"].lower() == cat.lower():
+            print(f"ID: {n['id']} | {n['categoria'].upper()}")
+            print(f"Título: {n['titulo']}")
+            print(f"Resumo: {n['resumo']}\n")
+            achou = True
+    if not achou:
+        print("⚠ Nenhuma notícia encontrada nessa categoria.\n")
+
+
+def buscar():
+    termo = input("Digite uma palavra para buscar: ").lower()
+    achou = False
+    print(f"\n=== Resultados da busca por: {termo} ===")
+    for n in noticias:
+        if termo in n["titulo"].lower() or termo in n["resumo"].lower():
+            print(f"ID: {n['id']} | {n['categoria'].upper()}")
+            print(f"Título: {n['titulo']}")
+            print(f"Resumo: {n['resumo']}\n")
+            achou = True
+    if not achou:
+        print("⚠ Nenhuma notícia encontrada.\n")
+
+
