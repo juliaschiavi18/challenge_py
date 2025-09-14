@@ -61,3 +61,16 @@ def buscar():
         print("⚠ Nenhuma notícia encontrada.\n")
 
 
+def remover():
+    try:
+        id_remove = int(input("Digite o ID da notícia que deseja remover: "))
+        for n in noticias:
+            if n["id"] == id_remove:
+                noticias.remove(n)
+                print("🗑 Notícia removida!\n")
+                return
+        print("⚠ ID não encontrado.\n")
+    except ValueError:
+        print("⚠ Digite um número válido.\n")
+
+
