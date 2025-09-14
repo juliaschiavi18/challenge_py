@@ -1,3 +1,6 @@
+# Projeto: Central de Notícias - Futebol Feminino
+# Integrantes: Julia Schiavi, Leonardo Grosskopf, Thayna Lopes, Sofia Bomeny
+
 # dicionário que guarda as notícias e contador de ID
 noticias = {}
 id_atual = 1
