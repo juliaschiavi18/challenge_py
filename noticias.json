@@ -1,0 +1,15 @@
+{
+    "noticias": {
+        "2": {
+            "titulo": "teste qwe",
+            "resumo": "iefjijfs",
+            "categoria": "clube"
+        },
+        "3": {
+            "titulo": "kjfjooehncd",
+            "resumo": "yryidopa",
+            "categoria": "campeonato"
+        }
+    },
+    "id_atual": 4
+}
