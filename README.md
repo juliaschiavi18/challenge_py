@@ -1,6 +1,6 @@
 # ⚽ Central de Notícias - Futebol Feminino
 
-Um programa em Python pra você **cadastrar, buscar e filtrar notícias** sobre futebol feminino de forma rápida e prática. Tudo direto no console! 🖥️✨
+Um programa em Python pra você **cadastrar, buscar, atualizar e filtrar notícias** sobre futebol feminino de forma rápida e prática. Tudo direto no console! 🖥️✨
 
 ---
 
@@ -19,15 +19,18 @@ Um programa em Python pra você **cadastrar, buscar e filtrar notícias** sobre 
   Encontre notícias pelo título ou resumo.  
 
 - **Remover notícia** 🗑️  
-  Exclua notícias pelo ID rapidinho.
+  Exclua notícias pelo ID rapidinho.  
+
+- **Atualizar notícia** ✏️  
+  Altere título, resumo ou categoria de uma notícia já cadastrada.  
 
 ---
 
-## 🚀 Como usar
+## 💾 Como funciona o armazenamento
 
-1. Baixe o arquivo `.py` ou clone o repositório.  
-2. Abra o terminal e vá até a pasta do projeto.  
-3. Execute
+- As notícias ficam salvas em um arquivo chamado **`noticias.json`**.  
+- Esse arquivo é criado automaticamente na primeira execução, então não precisa se preocupar em criar manualmente.  
+- Dentro dele ficam armazenados todos os dados, organizados por **ID**.  
 
 ## 👩‍💻 Desenvolvedores
 
